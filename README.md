@@ -76,13 +76,13 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 #### Option 1: From GitHub (Recommended)
 
 ```bash
-cargo install --git https://github.com/YOUR_USERNAME/shell.git
+cargo install --git https://github.com/romavissar/shell.git
 ```
 
 #### Option 2: Clone & Build
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/shell.git
+git clone https://github.com/romavissar/shell.git
 cd shell
 cargo install --path .
 ```
@@ -336,7 +336,7 @@ Starship: ~10 MB
 
 ```bash
 # Clone
-git clone https://github.com/YOUR_USERNAME/shell.git
+git clone https://github.com/romavissar/shell.git
 cd shell
 
 # Build debug
