@@ -5,7 +5,7 @@
   <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux">
 </p>
 
-<h1 align="center">⚡ Shell</h1>
+<h1 align="center">⚡ shell</h1>
 
 <p align="center">
   <strong>A lightning-fast, neon-powered shell prompt written in Rust</strong>
@@ -17,7 +17,7 @@
   <a href="#-commands">Commands</a> •
   <a href="#-modules">Modules</a> •
   <a href="#-configuration">Configuration</a> •
-  <a href="#-why-shell">Why Shell?</a>
+  <a href="#-why-shell">Why shell?</a>
 </p>
 
 ---
@@ -71,7 +71,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 ---
 
-### Install Shell
+### Install shell
 
 #### Option 1: From GitHub (Recommended)
 
@@ -91,7 +91,7 @@ cargo install --path .
 
 ## 🚀 Quick Start
 
-### 1️⃣ Initialize Your Shell
+### 1️⃣ Initialize Your shell
 
 <details open>
 <summary>🪟 <strong>PowerShell (Windows)</strong></summary>
@@ -288,24 +288,24 @@ pink      cyan   green    pink (new command after pipe)
 
 ---
 
-## ⚡ Why Shell?
+## ⚡ Why shell?
 
 ### 🏎️ Speed Comparison
 
 | Prompt | Cold Start | Warm Render |
 |--------|------------|-------------|
-| **Shell** | ~2ms | **< 1ms** |
+| **shell** | ~2ms | **< 1ms** |
 | Starship | ~20-50ms | ~5-15ms |
 | Oh-My-Posh | ~50-200ms | ~10-30ms |
 | Powerlevel10k | ~10-30ms | ~5-10ms |
 
-> Shell is **10-50x faster** than alternatives because of its architecture.
+> shell is **10-50x faster** than alternatives because of its architecture.
 
 ### 🔧 Tech Stack
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                         Shell                               │
+│                         shell                               │
 ├─────────────────────────────────────────────────────────────┤
 │  🦀 Rust          Zero-cost abstractions, no GC pauses      │
 │  📦 Static Binary  Single executable, no runtime deps       │
@@ -326,7 +326,7 @@ pink      cyan   green    pink (new command after pipe)
 ### 📊 Binary Size
 
 ```
-Shell:     ~2 MB  (stripped, LTO optimized)
+shell:     ~2 MB  (stripped, LTO optimized)
 Starship: ~10 MB
 ```
 
