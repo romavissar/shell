@@ -1,0 +1,18 @@
+[package]
+name = "shell"
+version = "0.1.0"
+edition = "2021"
+description = "A lightning-fast, neon-powered shell prompt"
+
+[dependencies]
+git2 = { version = "0.19", default-features = false }
+dirs = "5.0"
+toml = "0.8"
+serde = { version = "1.0", features = ["derive"] }
+hostname = "0.4"
+
+[profile.release]
+lto = true
+strip = true
+panic = "abort"
+
