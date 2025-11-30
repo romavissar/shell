@@ -23,6 +23,6 @@ fn version(cmd: &str, args: &[&str], icon: &str, idx: usize) -> Option<String> {
     Command::new(cmd).args(args).output().ok()
         .and_then(|o| String::from_utf8(o.stdout).ok())
         .and_then(|s| s.split_whitespace().nth(idx).map(|v| v.trim_start_matches('v').to_string()))
-        .map(|v| color(&format!("{}{}", icon, v), NEON_BLUE))
+        .map(|v| color(&format!("{} {}", icon, v), NEON_BLUE))
 }
 

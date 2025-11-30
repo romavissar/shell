@@ -28,7 +28,39 @@ impl Default for Config {
 
 impl Config {
     pub fn load() -> Self {
-        dirs::home_dir().map(|h| h.join(".shell.toml")).and_then(|p| fs::read_to_string(p).ok()).and_then(|s| toml::from_str(&s).ok()).unwrap_or_default()
+        let path = match dirs::home_dir() {
+            Some(h) => h.join(".shell.toml"),
+            None => return Self::default(),
+        };
+        
+        let bytes = match fs::read(&path) {
+            Ok(b) => b,
+            Err(_) => return Self::default(),
+        };
+        
+        // Handle different encodings (UTF-16 LE, UTF-16 BE, UTF-8 with BOM, UTF-8)
+        let content = if bytes.starts_with(&[0xFF, 0xFE]) {
+            // UTF-16 LE (common Windows encoding)
+            let u16s: Vec<u16> = bytes[2..].chunks(2)
+                .filter_map(|c| if c.len() == 2 { Some(u16::from_le_bytes([c[0], c[1]])) } else { None })
+                .collect();
+            String::from_utf16_lossy(&u16s)
+        } else if bytes.starts_with(&[0xFE, 0xFF]) {
+            // UTF-16 BE
+            let u16s: Vec<u16> = bytes[2..].chunks(2)
+                .filter_map(|c| if c.len() == 2 { Some(u16::from_be_bytes([c[0], c[1]])) } else { None })
+                .collect();
+            String::from_utf16_lossy(&u16s)
+        } else if bytes.starts_with(&[0xEF, 0xBB, 0xBF]) {
+            // UTF-8 with BOM
+            String::from_utf8_lossy(&bytes[3..]).into_owned()
+        } else {
+            // Plain UTF-8
+            String::from_utf8_lossy(&bytes).into_owned()
+        };
+        
+        toml::from_str(&content).unwrap_or_default()
     }
+    
     pub fn prompt_char(&self) -> &str { self.prompt_char.as_deref().unwrap_or("❯") }
 }

@@ -80,7 +80,8 @@ fn cmd_config(flag: Option<&str>) {
             if cfg!(windows) { "notepad".into() } else { "nano".into() })).arg(&path).status(); }
         Some("--default") => print!("{}", DEFAULT_CONFIG),
         Some("--print") => print!("{}", std::fs::read_to_string(&path).unwrap_or_else(|_| "# No config found\n".into())),
-        _ => println!("Config: {}\nExists: {}\n\nFlags: --path, --print, --default, --edit", path.display(), path.exists()),
+        Some("--create" | "create") => { std::fs::write(&path, DEFAULT_CONFIG).ok(); println!("Created {}", path.display()); }
+        _ => println!("Config: {}\nExists: {}\n\nFlags: --path, --print, --default, --create, --edit", path.display(), path.exists()),
     }
 }
 
@@ -140,7 +141,7 @@ USAGE: shell [COMMAND] [OPTIONS]
 COMMANDS:
   <exit_code> [duration_ms]  Render prompt (default)
   init <shell>               Output shell init script (bash/zsh/powershell/fish/nushell)
-  config [--flag]            Manage config (--path, --print, --default, --edit)
+  config [--flag]            Manage config (--path, --print, --default, --create, --edit)
   explain                    Show prompt segment breakdown
   benchmark [n]              Benchmark prompt rendering (default: 50 iterations)
   input                      Interactive readline with autocomplete

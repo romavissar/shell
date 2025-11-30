@@ -97,8 +97,8 @@ cargo install --path .
 <summary>🪟 <strong>PowerShell (Windows)</strong></summary>
 
 ```powershell
-# Add to your $PROFILE
-notepad $PROFILE
+# Add to your $PROFILE (use VS Code, not Notepad!)
+code $PROFILE
 ```
 
 Paste this line:
@@ -107,6 +107,8 @@ Invoke-Expression (shell init powershell | Out-String)
 ```
 
 Restart your terminal. Done! ✨
+
+> 💡 Don't have VS Code? Use `cursor $PROFILE` or any UTF-8 compatible editor.
 
 </details>
 
@@ -153,7 +155,7 @@ shell init nushell | save -f ~/.cache/shell-init.nu
 ### 2️⃣ Create Config (Optional)
 
 ```bash
-shell config --default > ~/.shell.toml
+shell config --create
 ```
 
 ### 3️⃣ Enjoy! 🎉
@@ -174,7 +176,7 @@ Your prompt now shows:
 | `shell` | Render your prompt |
 | `shell init <shell>` | Generate init script for your shell |
 | `shell input` | Interactive input with syntax highlighting |
-| `shell config` | Manage configuration |
+| `shell config` | Manage configuration (`--create`, `--edit`, `--print`, `--path`) |
 | `shell explain` | Debug what each prompt segment shows |
 | `shell benchmark` | Measure prompt render speed |
 | `shell version` | Show version |
@@ -183,17 +185,20 @@ Your prompt now shows:
 ### Examples
 
 ```bash
+# Create config file with proper encoding
+shell config --create
+
 # See what your prompt contains
 shell explain
 
 # Benchmark performance (50 iterations)
 shell benchmark
 
-# Generate default config
-shell config --default > ~/.shell.toml
-
-# Edit config
+# Edit config (opens in $EDITOR)
 shell config --edit
+
+# Print current config
+shell config --print
 ```
 
 ---
@@ -217,7 +222,22 @@ Toggle modules in `~/.shell.toml`:
 
 ## ⚙️ Configuration
 
-Create `~/.shell.toml`:
+### Creating the Config File
+
+```bash
+# Recommended: Use the built-in command (creates with proper UTF-8 encoding)
+shell config --create
+```
+
+This creates `~/.shell.toml` with the default configuration.
+
+> ⚠️ **Windows Users:** Do NOT use Notepad to edit the config file! Notepad saves files in UTF-16 encoding, which will break the config. Use one of these instead:
+> - **VS Code:** `code ~/.shell.toml`
+> - **Cursor:** `cursor ~/.shell.toml`  
+> - **Vim/Neovim:** `nvim ~/.shell.toml`
+> - **Any modern IDE** that saves as UTF-8
+
+### Config Options
 
 ```toml
 # Modules
@@ -235,6 +255,16 @@ duration_threshold_ms = 2000    # Show duration if command takes > 2s
 time_format = "%H:%M"           # Time format (strftime)
 prompt_char = "❯"               # Prompt character
 ```
+
+### Config Commands
+
+| Command | Description |
+|---------|-------------|
+| `shell config --create` | Create config file with proper UTF-8 encoding |
+| `shell config --edit` | Open config in your `$EDITOR` |
+| `shell config --print` | Display current configuration |
+| `shell config --path` | Show config file location |
+| `shell config --default` | Print default config template |
 
 ---
 
@@ -390,6 +420,23 @@ $env:PATH += ";$HOME\.cargo\bin"
 ```bash
 cargo uninstall shell
 # Remove the init line from your shell config
+```
+
+</details>
+
+<details>
+<summary><strong>Config changes not working? (Windows)</strong></summary>
+
+**Don't use Notepad!** It saves files as UTF-16 which breaks the config.
+
+Fix it by recreating the config:
+```powershell
+shell config --create
+```
+
+Then edit with VS Code or Cursor:
+```powershell
+code $HOME\.shell.toml
 ```
 
 </details>
